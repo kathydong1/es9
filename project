@@ -1,0 +1,45 @@
+Symbol:
+    1:直接返回 Symbol 的描述,description。
+      let test = Symbol('foo')  ===> test.descrpition # 'foo'
+    
+  
+      let obj = {}
+      let a = Symbol('aaa')
+      let b = Symbol('bbb')
+      obj[a] = 'hello'
+      obj[b] = 'hi'
+      obj.name = 'kathy'
+      
+  2:Object.getOwnPropertySymbols(obj)   # 返回Symbol键名数组[Symbol(aaa), Symbol(bbbb)]
+    
+  3:Reflect.ownKeys(obj)  #返回所有键名数组[name, Symbol(aaa), Symbol(bbbb)]
+  
+  4:使用同一个 Symbol 值  Symbol.for('foo')
+      let s1 = Symbol.for('foo')
+      let s2 = Symbol.for('foo')
+      s1 == s2  #true
+  5:Symbol.keyFor方法返回一个已登记的 Symbol 类型值的key
+ 
+ Proxy:
+    var proxy = new Proxy(target, handler);代理对象 target是要拦截的对象，handler是拦截的配置对象， Proxy 支持的拦截操作一览，一共 13 种。
+        
+        let obj = new Proxy({},{
+          get:fucntion(){return 35}
+        })
+        obj.name  #35
+ Reflect
+    Reflect对象的方法与Proxy对象的方法一一对应，只要是Proxy对象的方法，就能在Reflect对象上找到对应的方法，Reflect对象一共有 13 个静态方法。
+    Reflect.apply(target, thisArg, args) #绑定this对象后执行给定函数
+    Reflect.construct(target, args)  #同于new target(...args)，这提供了一种不使用new，来调用构造函数的方法
+    Reflect.get(target, name, receiver)  #查找并返回target对象的name属性
+    Reflect.set(target, name, value, receiver)  #设置target对象的name属性等于value
+    Reflect.defineProperty(target, name, desc) #对象定义属性
+    Reflect.deleteProperty(target, name)  #删除对象的属性
+    Reflect.has(target, name)   #对应name in obj里面的in运算符
+    Reflect.ownKeys(target) #用于返回对象的所有属性
+    Reflect.isExtensible(target) #当前对象是否可扩展
+    Reflect.preventExtensions(target) #用于让一个对象变为不可扩展
+    Reflect.getOwnPropertyDescriptor(target, name) #得到指定属性的描述对
+    Reflect.getPrototypeOf(target)  #读取对象的__proto__属性
+    Reflect.setPrototypeOf(target, prototype) #置目标对象的原型，返回一个布尔值
+  
