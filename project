@@ -42,4 +42,42 @@ Symbol:
     Reflect.getOwnPropertyDescriptor(target, name) #得到指定属性的描述对
     Reflect.getPrototypeOf(target)  #读取对象的__proto__属性
     Reflect.setPrototypeOf(target, prototype) #置目标对象的原型，返回一个布尔值
+ 
+ Iterator 
+    遍历器，当使用for...of循环遍历某种数据结构时，该循环会自动去寻找 Iterator 接口,默认的 Iterator 接口部署在数据结构的Symbol.iterator属性
+    Symbol.iterator等于该对象的遍历器生成函数
+ 
+ Generator 
+    Generator生成器
+    function与函数名之间，用*链接。   函数体内用yield产出   
+    Generator函数的调用方法与普通函数调用方法相同，都是直接fn()，但是该调用不是函数执行，而是指向函数内部指针，
+    需要调用next方法，每一个next都会按照顺序返回一个yield内容,yield表示暂停函数执行，而next是表示继续上一步继续执行。
+    yield 跟return很像，返回yield后边的值，如果没有就是underfind,
+    next是可以有参数的，next的参数就是执行yield后的值
+    但是for...of循环可以自动遍历 Generator 函数运行时生成的Iterator对象，且此时不再需要调用next方法
+    function* fn(){
+       yield 'hello';
+       var name = yield 'china';
+       yield name
+       return 'end'
+    }
+    let gene = fn()
+    gene.next()   #{value:'hello',done:'false'}
+    gene.next()   #{value:'china',done:'false'}
+    gene.next('kathy')   #{value:'kathy',done:'false'}
+    gene.next()   #{value:'end',done:'true'}
+    
+    #下面是一个利用 Generator 函数和for...of循环，
+    function* fibo(){
+      let [prev,curr] = [0,1]
+      for(;;){
+         yield curr
+         [prev,curr] = [curr,prev+curr]
+      }
+    }
+    for(let item of fibo()){
+        if(item > 1000)break;
+        console.log(item)
+    }
+    
   
